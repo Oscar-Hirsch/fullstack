@@ -68,4 +68,10 @@ class BookServiceTest {
         Mockito.verify( mockBookRepository ).save( updatedBook );
         Mockito.verify( mockBookRepository ).getByIsbn( 9342393 );
     }
+    
+    @Test
+    void deleteBook() {
+        mockBookService.deleteBook( 9342393 );
+        Mockito.verify( mockBookRepository ).removeBookByIsbn( 9342393 );
+    }
 }

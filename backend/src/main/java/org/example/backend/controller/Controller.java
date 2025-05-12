@@ -33,4 +33,9 @@ public class Controller {
     public Book updateBook( @PathVariable int isbn, @RequestBody Book book ) {
         return bookService.updateBook( isbn, book );
     }
+    
+    @DeleteMapping("/{isbn}")
+    public void deleteBook( @PathVariable int isbn ) {
+        bookService.getByISBN( isbn );
+    }
 }
