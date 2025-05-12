@@ -6,5 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BookRepository extends MongoRepository<Book, String> {
-    Book getByIsbn(int isbn);
+    Book getByIsbn( int isbn );
+    
+    void removeBookByIsbn( int isbn );
 }

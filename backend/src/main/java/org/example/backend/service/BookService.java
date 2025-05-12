@@ -35,4 +35,8 @@ public class BookService {
                 .withTotalAmount( book.totalAmount() )
                 .withTotalBookedAmount( book.totalBookedAmount() ) );
     }
+    
+    public void deleteBook( int isbn ) {
+        bookRepository.removeBookByIsbn( isbn );
+    }
 }
