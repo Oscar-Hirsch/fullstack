@@ -26,4 +26,17 @@ class BookServiceTest {
         List<Book> returnedBooks = mockBookService.getAll();
         assertEquals(BookList, returnedBooks);
     }
+
+    @Test
+    void getByISBN() {
+        //GIVEN
+        Book book = new Book("Dark", "John", 9342393, "lorem ipsum", "somthing.jpeg", 8, 2);
+
+        //WHEN
+        Mockito.when(mockBookRepository.getByIsbn(9342393)).thenReturn(book);
+
+        //THEN
+        Book returnedBook = mockBookService.getByISBN(9342393);
+        assertEquals(book, returnedBook);
+    }
 }
