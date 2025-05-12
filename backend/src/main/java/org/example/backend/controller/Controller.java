@@ -11,21 +11,26 @@ import java.util.List;
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class Controller {
-
+    
     private final BookService bookService;
-
+    
     @GetMapping
     public List<Book> getAll() {
         return bookService.getAll();
     }
-
+    
     @GetMapping("/{isbn}")
-    public Book getByISBN(@PathVariable int isbn) {
-        return bookService.getByISBN(isbn);
+    public Book getByISBN( @PathVariable int isbn ) {
+        return bookService.getByISBN( isbn );
     }
-
+    
     @PostMapping("/newBook")
-    public Book addBook(@RequestBody Book book) {
-        return bookService.addBook(book);
+    public Book addBook( @RequestBody Book book ) {
+        return bookService.addBook( book );
+    }
+    
+    @PutMapping("/{isbn}")
+    public Book updateBook( @PathVariable int isbn, @RequestBody Book book ) {
+        return bookService.updateBook( isbn, book );
     }
 }

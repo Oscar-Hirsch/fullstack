@@ -10,18 +10,29 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class BookService {
-
+    
     private final BookRepository bookRepository;
-
+    
     public List<Book> getAll() {
         return bookRepository.findAll();
     }
-
-    public Book getByISBN(int isbn) {
-        return bookRepository.getByIsbn(isbn);
+    
+    public Book getByISBN( int isbn ) {
+        return bookRepository.getByIsbn( isbn );
     }
-
-    public Book addBook(Book book) {
-        return bookRepository.save(book);
+    
+    public Book addBook( Book book ) {
+        return bookRepository.save( book );
+    }
+    
+    public Book updateBook( int isbn, Book book ) {
+        Book foundBook = bookRepository.getByIsbn( isbn );
+        return bookRepository.save( foundBook
+                .withAuthor( book.author() )
+                .withImage( book.image() )
+                .withTitle( book.title() )
+                .withSummary( book.summary() )
+                .withTotalAmount( book.totalAmount() )
+                .withTotalBookedAmount( book.totalBookedAmount() ) );
     }
 }
