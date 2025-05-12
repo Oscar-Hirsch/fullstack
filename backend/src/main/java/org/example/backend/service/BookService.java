@@ -20,4 +20,8 @@ public class BookService {
     public Book getByISBN(int isbn) {
         return bookRepository.getByIsbn(isbn);
     }
+
+    public Book addBook(Book book) {
+        return bookRepository.save(book);
+    }
 }

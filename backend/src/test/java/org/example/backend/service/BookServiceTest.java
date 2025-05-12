@@ -39,4 +39,16 @@ class BookServiceTest {
         Book returnedBook = mockBookService.getByISBN(9342393);
         assertEquals(book, returnedBook);
     }
+
+    @Test
+    void addBook() {
+        //GIVEN
+        Book book = new Book("Dark", "John", 9342393, "lorem ipsum", "somthing.jpeg", 8, 2);
+
+        //WHEN
+        mockBookService.addBook(book);
+
+        //THEN
+        Mockito.verify(mockBookRepository).save(book);
+    }
 }
