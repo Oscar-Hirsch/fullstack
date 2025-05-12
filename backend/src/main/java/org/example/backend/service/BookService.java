@@ -17,4 +17,7 @@ public class BookService {
         return bookRepository.findAll();
     }
 
+    public Book getByISBN(int isbn) {
+        return bookRepository.getByIsbn(isbn);
+    }
 }
