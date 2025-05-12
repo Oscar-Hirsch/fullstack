@@ -3,10 +3,7 @@ package org.example.backend.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.backend.service.BookService;
 import org.example.backend.types.Book;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +22,10 @@ public class Controller {
     @GetMapping("/{isbn}")
     public Book getByISBN(@PathVariable int isbn) {
         return bookService.getByISBN(isbn);
+    }
+
+    @PostMapping("/newBook")
+    public Book addBook(@RequestBody Book book) {
+        return bookService.addBook(book);
     }
 }
