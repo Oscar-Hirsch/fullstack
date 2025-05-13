@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import AddBookForm from "./components/AddBookForm.tsx";
 import {Routes, Route} from "react-router-dom";
+import DetailView from "./components/DetailView.tsx";
 
 function App() {
   const [books, setBooks] = useState<book[]>([]);
@@ -19,6 +20,7 @@ function App() {
       <Routes>
           <Route path={"/"} element={<BookGallery bookList={books}/>}/>
           <Route path={"/newBook"} element={<AddBookForm/>}/>
+          <Route path={"/:isbn"} element={<DetailView/>}/>
       </Routes>
   )
 }
