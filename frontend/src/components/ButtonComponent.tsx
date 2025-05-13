@@ -1,6 +1,6 @@
 export default function ButtonComponent(props: {
   className?: string;
-  onClick: () => void;
+  onClick?: () => void;
   label: string;
 }) {
   const { onClick, label } = props;

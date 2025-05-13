@@ -3,6 +3,7 @@ import type { book } from "../types/book/book.ts";
 import Searchbar from "./Searchbar.tsx";
 import { useState } from "react";
 import ButtonComponent from "./ButtonComponent.tsx";
+import {useNavigate} from "react-router-dom";
 
 type galleryProps = {
   bookList: book[];
@@ -14,6 +15,9 @@ export default function BookGallery({ bookList }: galleryProps) {
     book.title.includes(searchString),
   );
   const divStyle = "grid grid-cols-3 gap-5";
+  const navigate = useNavigate()
+
+
 
   return (
     <>
@@ -27,7 +31,7 @@ export default function BookGallery({ bookList }: galleryProps) {
         ))}
       </div>
       <ButtonComponent
-        onClick={() => console.log("button gedrückt")}
+        onClick={()=> navigate("/newBook")}
         label="Buch hinzufügen"
       />
     </>
