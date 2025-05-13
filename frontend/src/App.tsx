@@ -1,23 +1,19 @@
-import './App.css'
 import BookGallery from "./components/BookGallery.tsx";
-import type {book} from "./types/book/book.ts";
-import {useEffect, useState} from "react";
+import type { book } from "./types/book/book.ts";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 function App() {
-    const [books, setBooks] = useState<book[]>([]);
+  const [books, setBooks] = useState<book[]>([]);
 
-    useEffect(() => {
-        axios.get<book[]>("/api")
-            .then(response => setBooks(response.data))
-            .catch(e => console.error(e))
-    }, [books])
+  useEffect(() => {
+    axios
+      .get<book[]>("/api")
+      .then((response) => setBooks(response.data))
+      .catch((e) => console.error(e));
+  }, []);
 
-  return (
-    <>
-      <BookGallery bookList={books}></BookGallery>
-    </>
-  )
+  return <BookGallery bookList={books} />;
 }
 
-export default App
+export default App;
