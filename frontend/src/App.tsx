@@ -1,32 +1,21 @@
 import './App.css'
-import BookGallerie from "./components/BookGallerie.tsx";
+import BookGallery from "./components/BookGallery.tsx";
 import type {book} from "./types/book/book.ts";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 function App() {
+    const [books, setBooks] = useState<book[]>([]);
 
-    const book:book = {
-        isbn: 324233,
-        title:"string",
-        author:"string",
-        summary:"string",
-        image:"string",
-        totalAmount:3,
-        totalBookedAmount:4}
-
-    const book2:book = {
-        isbn: 324213,
-        title:"string",
-        author:"string",
-        summary:"string",
-        image:"string",
-        totalAmount:3,
-        totalBookedAmount:4}
-    const bookList:book[] = [book,book2]
-
+    useEffect(() => {
+        axios.get<book[]>("/api")
+            .then(response => setBooks(response.data))
+            .catch(e => console.error(e))
+    }, [books])
 
   return (
     <>
-      <BookGallerie bookList={bookList}></BookGallerie>
+      <BookGallery bookList={books}></BookGallery>
     </>
   )
 }

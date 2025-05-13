@@ -3,12 +3,12 @@ import type {book} from "../types/book/book.ts";
 import Searchbar from "./Searchbar.tsx";
 import {useState} from "react";
 
-type gallerieProps = {
+type galleryProps = {
     bookList:book[]
 }
 
 
-export default function BookGallerie({bookList}:gallerieProps) {
+export default function BookGallery({bookList}:galleryProps) {
     const [searchString, setSearchString] = useState<string>("")
     const filteredList = bookList.filter(book => book.title.includes(searchString))
 
@@ -17,7 +17,7 @@ export default function BookGallerie({bookList}:gallerieProps) {
             <Searchbar setSearchString={setSearchString} searchString={searchString}/>
             {
                 filteredList.map(book =>
-                <BookCard book={book}/>)
+                <BookCard book={book} key={book.isbn}/>)
             }
         </>
     )
