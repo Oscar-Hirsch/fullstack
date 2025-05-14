@@ -1,53 +1,124 @@
-import {type ChangeEvent, type FormEvent, useState} from "react";
-import type {book} from "../types/book/book.ts";
+import { type ChangeEvent, type FormEvent, useEffect, useState } from "react";
+import type { book } from "../types/book/book.ts";
 import axios from "axios";
 import ButtonComponent from "./ButtonComponent.tsx";
-import {useNavigate} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-export default function AddBookForm() {
-    const defaultBook:book = {
-        isbn:null,
-        title:"",
-        author:"",
-        summary:"",
-        image:"",
-        totalAmount:0,
-        totalBookedAmount:0
-    }
-    const [newBook, setNewBook] = useState<book>(defaultBook)
+export default function EditAddBookForm() {
+  const { isbn } = useParams();
+  const [book, setBook] = useState<book>({
+    isbn: null,
+    title: "",
+    author: "",
+    summary: "",
+    image: "",
+    totalAmount: 0,
+    totalBookedAmount: 0,
+  });
 
-    function handleOnChange(e:ChangeEvent<HTMLInputElement>) {
-        setNewBook(previous =>
-            ({
-                ...previous,
-                [e.target.name]: e.target.value
-            })
-        )
-    }
+  useEffect(() => {
+    if (isbn)
+      axios.get(`/api/${isbn}`).then((response) => setBook(response.data));
+  }, [isbn]);
 
-    function handleOnSubmit(e:FormEvent<HTMLFormElement>) {
-        e.preventDefault()
-        axios.post("/api/newBook", newBook).catch(error => console.log(error))
-    }
+  const [newBook, setNewBook] = useState<book>(book);
 
-    const navigate = useNavigate()
-    const formstyle:string = "border"
+  function handleOnChange(e: ChangeEvent<HTMLInputElement>) {
+    setNewBook((previous) => ({
+      ...previous,
+      [e.target.name]: e.target.value,
+    }));
+  }
 
-    return (
-        <>
-            <form onSubmit={handleOnSubmit}>
-                <input name={"isbn"} type={"number"} onChange={handleOnChange} className={formstyle}/>
-                <input name={"title"} type={"string"} onChange={handleOnChange} className={formstyle}/>
-                <input name={"author"} type={"string"} onChange={handleOnChange} className={formstyle}/>
-                <input name={"summary"} type={"string"} onChange={handleOnChange} className={formstyle}/>
-                <input name={"image"} type={"string"} onChange={handleOnChange} className={formstyle}/>
-                <input name={"totalAmount"} type={"number"} onChange={handleOnChange} className={formstyle}/>
-                <input name={"totalBookedAmount"} type={"number"} onChange={handleOnChange} className={formstyle}/>
-                <ButtonComponent label={"Submit"}/>
-            </form>
+  function handleOnSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (isbn)
+      axios.put(`/api/${isbn}`, newBook).catch((error) => console.log(error));
+    else
+      axios.post("/api/newBook", newBook).catch((error) => console.log(error));
+  }
 
-            <ButtonComponent onClick={()=>navigate("/")} label={"Back"}/>
+  const navigate = useNavigate();
+  const formstyle: string = "border";
 
-        </>
-    )
+  return (
+    <>
+      <form onSubmit={handleOnSubmit} className="flex flex-col gap-5">
+        <label>
+          ISBN:
+          <input
+            name={"isbn"}
+            type={"number"}
+            onChange={handleOnChange}
+            className={formstyle}
+            defaultValue={book.isbn || undefined}
+            disabled={!!isbn}
+          />
+        </label>
+        <label>
+          Titel:
+          <input
+            name={"title"}
+            type={"string"}
+            onChange={handleOnChange}
+            className={formstyle}
+            defaultValue={book.title}
+          />
+        </label>
+        <label>
+          Autor:
+          <input
+            name={"author"}
+            type={"string"}
+            onChange={handleOnChange}
+            className={formstyle}
+            defaultValue={book.author}
+          />
+        </label>
+        <label>
+          Beschreibung:
+          <input
+            name={"summary"}
+            type={"string"}
+            onChange={handleOnChange}
+            className={formstyle}
+            defaultValue={book.summary}
+          />
+        </label>
+        <label>
+          Bild:
+          <input
+            name={"image"}
+            type={"string"}
+            onChange={handleOnChange}
+            className={formstyle}
+            defaultValue={book.image}
+          />
+        </label>
+        <label>
+          Anzahl:
+          <input
+            name={"totalAmount"}
+            type={"number"}
+            onChange={handleOnChange}
+            className={formstyle}
+            defaultValue={book.totalAmount}
+          />
+        </label>
+        <label>
+          Ausgeliehen:
+          <input
+            name={"totalBookedAmount"}
+            type={"number"}
+            onChange={handleOnChange}
+            className={formstyle}
+            defaultValue={book.totalBookedAmount}
+          />
+        </label>
+        <ButtonComponent label={"Submit"} />
+      </form>
+
+      <ButtonComponent onClick={() => navigate("/")} label={"Back"} />
+    </>
+  );
 }
