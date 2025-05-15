@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ButtonComponent from "./ButtonComponent.tsx";
-import PageWrapper from "./pagewrapper.tsx";
+import PageWrapper from "./PageWrapper.tsx";
 
 export default function DetailView() {
   const { isbn } = useParams();
@@ -73,25 +73,28 @@ export default function DetailView() {
             <p> Autor:</p>
             <p> {book.author}</p>
             <p>Verfügbar:</p>
-            <p className={totalAvailable > 0 ? "text-green-600" : "text-red-600"}>
+            <p
+              className={totalAvailable > 0 ? "text-green-600" : "text-red-600"}
+            >
               {totalAvailable}/{book.totalAmount}
             </p>
           </div>
           <div>
             <ButtonComponent
-                onClick={handleBookLending}
-                label={"Ausleihen"}
-                disabled={totalAvailable <= 0}
+              onClick={handleBookLending}
+              label={"Ausleihen"}
+              disabled={totalAvailable <= 0}
             />
             <ButtonComponent
-                onClick={handleBookReturn}
-                label={"Zurückgeben"}
-                disabled={book.totalBookedAmount <= 0}
+              onClick={handleBookReturn}
+              label={"Zurückgeben"}
+              disabled={book.totalBookedAmount <= 0}
             />
           </div>
 
-
-            <p className={"overflow-y-scroll h-[200px]"}>Beschreibung: {book.summary}</p>
+          <p className={"overflow-y-scroll h-[200px]"}>
+            Beschreibung: {book.summary}
+          </p>
 
           <div>
             <ButtonComponent onClick={handleDelete} label={"Löschen"} />
@@ -100,7 +103,7 @@ export default function DetailView() {
               label={"Bearbeiten"}
             />
           </div>
-          <ButtonComponent onClick={()=> navigate("/")} label={"Zurück"} />
+          <ButtonComponent onClick={() => navigate("/")} label={"Zurück"} />
         </div>
       ) : (
         <p>Nothing here</p>
