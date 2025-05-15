@@ -21,10 +21,8 @@ export default function EditAddBookForm() {
       axios.get(`/api/${isbn}`).then((response) => setBook(response.data));
   }, [isbn]);
 
-  const [newBook, setNewBook] = useState<book>(book);
-
   function handleOnChange(e: ChangeEvent<HTMLInputElement>) {
-    setNewBook((previous) => ({
+    setBook((previous) => ({
       ...previous,
       [e.target.name]: e.target.value,
     }));
@@ -33,9 +31,8 @@ export default function EditAddBookForm() {
   function handleOnSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (isbn)
-      axios.put(`/api/${isbn}`, newBook).catch((error) => console.log(error));
-    else
-      axios.post("/api/newBook", newBook).catch((error) => console.log(error));
+      axios.put(`/api/${isbn}`, book).catch((error) => console.log(error));
+    else axios.post("/api/newBook", book).catch((error) => console.log(error));
   }
 
   const navigate = useNavigate();
