@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ButtonComponent from "./ButtonComponent.tsx";
+import PageWrapper from "./pagewrapper.tsx";
 
 export default function DetailView() {
   const { isbn } = useParams();
@@ -55,35 +56,43 @@ export default function DetailView() {
   const totalAvailable: number = book.totalAmount - book.totalBookedAmount;
 
   return (
-    <>
+    <PageWrapper>
       {book ? (
-        <div className={"grid grid-cols-2 gap-2"}>
+        <div className={"grid grid-cols-[auto_auto] gap-8"}>
           <img
             src={book.image}
             alt={"Cover of " + book.title}
-            className={"row-span-2"}
+            className={"row-span-3 max-w-xl max-h-4xl"}
           />
-          <div>
-            <p>Titel: {book.title}</p>
-            <p>ISBN: {book.isbn}</p>
-            <p>Autor: {book.author}</p>
-            <p>
+          <div className={"grid grid-cols-[1fr_6fr] gap-2"}>
+            <h1 className={"col-span-2 text-3xl mb-5"}>{book.title}</h1>
+            <p>Titel:</p>
+            <p>{book.title}</p>
+            <p>ISBN:</p>
+            <p>{book.isbn}</p>
+            <p> Autor:</p>
+            <p> {book.author}</p>
+            <p>Verfügbar:</p>
+            <p className={totalAvailable > 0 ? "text-green-600" : "text-red-600"}>
               {totalAvailable}/{book.totalAmount}
             </p>
-            <ButtonComponent
-              onClick={handleBookLending}
-              label={"Ausleihen"}
-              disabled={totalAvailable <= 0}
-            />
-            <ButtonComponent
-              onClick={handleBookReturn}
-              label={"Zurückgeben"}
-              disabled={book.totalBookedAmount <= 0}
-            />
           </div>
           <div>
-            <p>Beschreibung: {book.summary}</p>
+            <ButtonComponent
+                onClick={handleBookLending}
+                label={"Ausleihen"}
+                disabled={totalAvailable <= 0}
+            />
+            <ButtonComponent
+                onClick={handleBookReturn}
+                label={"Zurückgeben"}
+                disabled={book.totalBookedAmount <= 0}
+            />
           </div>
+
+
+            <p className={"overflow-y-scroll h-[200px]"}>Beschreibung: {book.summary}</p>
+
           <div>
             <ButtonComponent onClick={handleDelete} label={"Löschen"} />
             <ButtonComponent
@@ -91,10 +100,11 @@ export default function DetailView() {
               label={"Bearbeiten"}
             />
           </div>
+          <ButtonComponent onClick={()=> navigate("/")} label={"Zurück"} />
         </div>
       ) : (
         <p>Nothing here</p>
       )}
-    </>
+    </PageWrapper>
   );
 }
