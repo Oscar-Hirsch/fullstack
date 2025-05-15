@@ -22,6 +22,7 @@ export default function DetailView() {
   }, [isbn]);
 
   function handleBookLending() {
+    if (book.totalBookedAmount >= book.totalAmount) return;
     //use effect total booked amount for dependency array
     axios
       .put(`/api/${isbn}`, {
@@ -33,6 +34,7 @@ export default function DetailView() {
   }
 
   function handleBookReturn() {
+    if (book.totalBookedAmount <= 0) return;
     //use effect total booked amount for dependency array
     axios
       .put(`/api/${isbn}`, {
@@ -68,8 +70,16 @@ export default function DetailView() {
             <p>
               {totalAvailable}/{book.totalAmount}
             </p>
-            <ButtonComponent onClick={handleBookLending} label={"Ausleihen"} />
-            <ButtonComponent onClick={handleBookReturn} label={"Zurückgeben"} />
+            <ButtonComponent
+              onClick={handleBookLending}
+              label={"Ausleihen"}
+              disabled={totalAvailable <= 0}
+            />
+            <ButtonComponent
+              onClick={handleBookReturn}
+              label={"Zurückgeben"}
+              disabled={book.totalBookedAmount <= 0}
+            />
           </div>
           <div>
             <p>Beschreibung: {book.summary}</p>
