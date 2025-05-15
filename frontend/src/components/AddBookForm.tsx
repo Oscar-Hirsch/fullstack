@@ -4,7 +4,11 @@ import axios from "axios";
 import ButtonComponent from "./ButtonComponent.tsx";
 import { useNavigate, useParams } from "react-router-dom";
 
-export default function EditAddBookForm() {
+type EditAddBookFormProps = {
+  getAllBooksCallback: () => void;
+};
+
+export default function EditAddBookForm(props: EditAddBookFormProps) {
   const { isbn } = useParams();
   const [book, setBook] = useState<book>({
     isbn: null,
@@ -31,8 +35,21 @@ export default function EditAddBookForm() {
   function handleOnSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (isbn)
-      axios.put(`/api/${isbn}`, book).catch((error) => console.log(error));
-    else axios.post("/api/newBook", book).catch((error) => console.log(error));
+      axios
+        .put(`/api/${isbn}`, book)
+        .then(() => {
+          props.getAllBooksCallback();
+          navigate(`/${isbn}`);
+        })
+        .catch((error) => console.log(error));
+    else
+      axios
+        .post("/api/newBook", book)
+        .then(() => {
+          props.getAllBooksCallback();
+          navigate("/");
+        })
+        .catch((error) => console.log(error));
   }
 
   const navigate = useNavigate();
