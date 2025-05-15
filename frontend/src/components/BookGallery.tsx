@@ -4,6 +4,7 @@ import Searchbar from "./Searchbar.tsx";
 import { useState } from "react";
 import ButtonComponent from "./ButtonComponent.tsx";
 import {useNavigate} from "react-router-dom";
+import PageWrapper from "./pagewrapper.tsx";
 
 type galleryProps = {
   bookList: book[];
@@ -20,7 +21,7 @@ export default function BookGallery({ bookList }: galleryProps) {
 
 
   return (
-    <>
+    <PageWrapper>
       <Searchbar
         setSearchString={setSearchString}
         searchString={searchString}
@@ -34,6 +35,6 @@ export default function BookGallery({ bookList }: galleryProps) {
         onClick={()=> navigate("/newBook")}
         label="Buch hinzufügen"
       />
-    </>
+    </PageWrapper>
   );
 }
