@@ -1,9 +1,9 @@
-import type { book } from "../types/book/book.ts";
+import type { book } from "../../types/book/book.ts";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import ButtonComponent from "./ButtonComponent.tsx";
-import PageWrapper from "./PageWrapper.tsx";
+import ButtonComponent from "../ButtonComponent.tsx";
+import PageWrapper from "../layout/PageWrapper.tsx";
 
 export default function DetailView() {
   const { isbn } = useParams();
@@ -103,7 +103,6 @@ export default function DetailView() {
               label={"Bearbeiten"}
             />
           </div>
-          <ButtonComponent onClick={() => navigate("/")} label={"Zurück"} />
         </div>
       ) : (
         <p>Nothing here</p>

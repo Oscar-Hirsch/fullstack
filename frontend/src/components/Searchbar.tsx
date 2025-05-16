@@ -1,21 +1,26 @@
-import {type ChangeEvent} from "react";
+import { type ChangeEvent } from "react";
 
 type SearchbarProperties = {
-    setSearchString: (search:string) => void
-    searchString:string
-}
+  setSearchString: (search: string) => void;
+  searchString: string;
+};
 
-export default function Searchbar ({setSearchString, searchString}:SearchbarProperties) {
+export default function Searchbar({
+  setSearchString,
+  searchString,
+}: SearchbarProperties) {
+  function handleOnClick(e: ChangeEvent<HTMLInputElement>) {
+    setSearchString(e.target.value);
+  }
 
-    function handleOnClick(e:ChangeEvent<HTMLInputElement>) {
-        setSearchString(e.target.value)
-        console.log(searchString)
-    }
-
-    return (
-        <>
-            <input value={searchString} onChange={handleOnClick}></input>
-        </>
-    )
-
+  return (
+    <>
+      <input
+        value={searchString}
+        onChange={handleOnClick}
+        className="border"
+        placeholder="Suchen"
+      />
+    </>
+  );
 }
