@@ -75,8 +75,8 @@ export default function DetailView() {
             <p> {book.author}</p>
             <p>Verfügbar:</p>
             <Label
-                styling={totalAvailable > 0 ? "bg-[#8EB19D]" : "bg-[#DA627D]"}
-                stringLabel={`${totalAvailable}/${book.totalAmount}`}
+              styling={totalAvailable > 0 ? "bg-[#8EB19D]" : "bg-[#DA627D]"}
+              stringLabel={`${totalAvailable}/${book.totalAmount}`}
             />
           </div>
           <div className={"space-x-4"}>
@@ -91,10 +91,16 @@ export default function DetailView() {
               disabled={book.totalBookedAmount <= 0}
             />
           </div>
-
-          <p className={"overflow-y-scroll h-[200px]"}>
-            Beschreibung: {book.summary}
-          </p>
+          <div>
+            <p>Beschreibung</p>
+            <p
+              className={
+                "overflow-y-scroll h-[200px] whitespace-pre-wrap shadow-2xl border border-black rounded-2xl p-2"
+              }
+            >
+              {book.summary}
+            </p>
+          </div>
 
           <div className={"space-x-4"}>
             <ButtonComponent onClick={handleDelete} label={"Löschen"} />
