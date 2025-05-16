@@ -6,12 +6,13 @@ export default function ButtonComponent(props: {
 }) {
   const { onClick, label } = props;
 
-  const buttonStyle =
-    "transition-colors p-2 border rounded-[4px] hover:bg-blue-100 active:bg-blue-300 disabled:bg-gray-500 " +
+  const className =
+    "transition-colors p-2 border rounded-[4px] hover:bg-blue-100 active:bg-blue-300 disabled:bg-gray-500 shadow" +
+    " " +
     props.className;
 
   return (
-    <button className={buttonStyle} disabled={props.disabled} onClick={onClick}>
+    <button className={className} disabled={props.disabled} onClick={onClick}>
       {label}
     </button>
   );

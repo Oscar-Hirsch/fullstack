@@ -26,7 +26,9 @@ export default function EditAddBookForm(props: EditAddBookFormProps) {
       axios.get(`/api/${isbn}`).then((response) => setBook(response.data));
   }, [isbn]);
 
-  function handleOnChange(e: ChangeEvent<HTMLInputElement>) {
+  function handleOnChange(
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) {
     setBook((previous) => ({
       ...previous,
       [e.target.name]: e.target.value,
@@ -54,13 +56,14 @@ export default function EditAddBookForm(props: EditAddBookFormProps) {
   }
 
   const navigate = useNavigate();
-  const formstyle: string = "border";
+  const formstyle: string = "border rounded-[5px] p-2 shadow";
+  const labelClassName = "flex flex-col";
 
   return (
     <PageWrapper>
       <form onSubmit={handleOnSubmit} className="flex flex-col gap-5">
-        <label>
-          ISBN:
+        <label className={labelClassName}>
+          <span>ISBN:</span>
           <input
             name={"isbn"}
             type={"number"}
@@ -70,47 +73,44 @@ export default function EditAddBookForm(props: EditAddBookFormProps) {
             disabled={!!isbn}
           />
         </label>
-        <label>
+        <label className={labelClassName}>
           Titel:
           <input
             name={"title"}
-            type={"string"}
             onChange={handleOnChange}
             className={formstyle}
             value={book.title}
           />
         </label>
-        <label>
+        <label className={labelClassName}>
           Autor:
           <input
             name={"author"}
-            type={"string"}
             onChange={handleOnChange}
             className={formstyle}
             value={book.author}
           />
         </label>
-        <label>
+        <label className={labelClassName}>
           Beschreibung:
-          <input
+          <textarea
             name={"summary"}
-            type={"string"}
             onChange={handleOnChange}
             className={formstyle}
             value={book.summary}
+            rows={10}
           />
         </label>
-        <label>
+        <label className={labelClassName}>
           Bild:
           <input
             name={"image"}
-            type={"string"}
             onChange={handleOnChange}
             className={formstyle}
             value={book.image}
           />
         </label>
-        <label>
+        <label className={labelClassName}>
           Anzahl:
           <input
             name={"totalAmount"}
@@ -120,7 +120,7 @@ export default function EditAddBookForm(props: EditAddBookFormProps) {
             value={String(book.totalAmount)}
           />
         </label>
-        <label>
+        <label className={labelClassName}>
           Ausgeliehen:
           <input
             name={"totalBookedAmount"}
