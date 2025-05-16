@@ -1,10 +1,10 @@
-import BookGallery from "./components/BookGallery.tsx";
+import BookGallery from "./components/pages/BookGallery.tsx";
 import type { book } from "./types/book/book.ts";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { Route, Routes } from "react-router-dom";
-import DetailView from "./components/DetailView.tsx";
-import EditAddBookForm from "./components/AddBookForm.tsx";
+import DetailView from "./components/pages/DetailView.tsx";
+import EditAddBookForm from "./components/pages/EditAddBookForm.tsx";
 
 function App() {
   const [books, setBooks] = useState<book[]>([]);

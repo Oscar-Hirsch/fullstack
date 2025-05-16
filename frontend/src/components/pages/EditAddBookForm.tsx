@@ -1,8 +1,9 @@
 import { type ChangeEvent, type FormEvent, useEffect, useState } from "react";
-import type { book } from "../types/book/book.ts";
+import type { book } from "../../types/book/book.ts";
 import axios from "axios";
-import ButtonComponent from "./ButtonComponent.tsx";
+import ButtonComponent from "../ButtonComponent.tsx";
 import { useNavigate, useParams } from "react-router-dom";
+import PageWrapper from "../layout/PageWrapper.tsx";
 
 type EditAddBookFormProps = {
   getAllBooksCallback: () => void;
@@ -56,7 +57,7 @@ export default function EditAddBookForm(props: EditAddBookFormProps) {
   const formstyle: string = "border";
 
   return (
-    <>
+    <PageWrapper>
       <form onSubmit={handleOnSubmit} className="flex flex-col gap-5">
         <label>
           ISBN:
@@ -131,8 +132,6 @@ export default function EditAddBookForm(props: EditAddBookFormProps) {
         </label>
         <ButtonComponent label={"Submit"} />
       </form>
-
-      <ButtonComponent onClick={() => navigate("/")} label={"Back"} />
-    </>
+    </PageWrapper>
   );
 }
