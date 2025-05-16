@@ -36,6 +36,6 @@ public class Controller {
     
     @DeleteMapping("/{isbn}")
     public void deleteBook( @PathVariable int isbn ) {
-        bookService.getByISBN( isbn );
+        bookService.deleteBook( isbn );
     }
 }
