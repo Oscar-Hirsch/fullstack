@@ -4,6 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import ButtonComponent from "../ButtonComponent.tsx";
 import PageWrapper from "../layout/PageWrapper.tsx";
+import Label from "../Label.tsx";
 
 export default function DetailView() {
   const { isbn } = useParams();
@@ -73,13 +74,12 @@ export default function DetailView() {
             <p> Autor:</p>
             <p> {book.author}</p>
             <p>Verfügbar:</p>
-            <p
-              className={totalAvailable > 0 ? "text-green-600" : "text-red-600"}
-            >
-              {totalAvailable}/{book.totalAmount}
-            </p>
+            <Label
+                styling={totalAvailable > 0 ? "bg-[#8EB19D]" : "bg-[#DA627D]"}
+                stringLabel={`${totalAvailable}/${book.totalAmount}`}
+            />
           </div>
-          <div>
+          <div className={"space-x-4"}>
             <ButtonComponent
               onClick={handleBookLending}
               label={"Ausleihen"}
@@ -96,7 +96,7 @@ export default function DetailView() {
             Beschreibung: {book.summary}
           </p>
 
-          <div>
+          <div className={"space-x-4"}>
             <ButtonComponent onClick={handleDelete} label={"Löschen"} />
             <ButtonComponent
               onClick={() => navigate(`/${isbn}/edit`)}
