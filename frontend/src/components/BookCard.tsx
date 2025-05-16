@@ -8,8 +8,8 @@ type BookCardProps = {
 };
 
 export default function BookCard({ book }: BookCardProps) {
-  const totalAvailable: number = book.totalAmount - book.totalBookedAmount;
   const navigate = useNavigate();
+  const totalAvailable: number = book.totalAmount - book.totalBookedAmount;
 
   return (
     <div className="flex flex-col items-center justify-between p-5 rounded-[5px] h-100 bg-white shadow-2xl">
@@ -21,8 +21,10 @@ export default function BookCard({ book }: BookCardProps) {
         />
         <p>Titel: {book.title}</p>
         <p> Autor: {book.author}</p>
-        <Label styling={totalAvailable > 0 ? "bg-[#8EB19D]" : "bg-[#DA627D]"}
-               stringLabel={totalAvailable > 0 ? "Verfügbar" : "Nicht verfügbar"}></Label>
+        <Label
+          styling={totalAvailable > 0 ? "bg-[#8EB19D]" : "bg-[#DA627D]"}
+          stringLabel={totalAvailable > 0 ? "Verfügbar" : "Nicht verfügbar"}
+        ></Label>
       </div>
       <ButtonComponent
         label={"Details"}
