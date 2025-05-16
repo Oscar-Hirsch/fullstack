@@ -7,7 +7,7 @@ export default function ButtonComponent(props: {
   const { onClick, label } = props;
 
   const buttonStyle =
-    "p-2 border rounded-[4px] hover:bg-blue-200 disabled:bg-gray-500 " +
+    "transition-colors p-2 border rounded-[4px] hover:bg-blue-100 active:bg-blue-300 disabled:bg-gray-500 " +
     props.className;
 
   return (
