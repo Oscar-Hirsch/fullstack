@@ -4,6 +4,6 @@ export type book = {
     author:string
     summary:string
     image:string
-    totalAmount:number|null
-    totalBookedAmount:number|null
+    totalAmount:number
+    totalBookedAmount:number
 }

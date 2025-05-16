@@ -17,8 +17,8 @@ export default function EditAddBookForm(props: EditAddBookFormProps) {
     author: "",
     summary: "",
     image: "",
-    totalAmount: null,
-    totalBookedAmount: null,
+    totalAmount: 0,
+    totalBookedAmount: 0,
   });
 
   useEffect(() => {
@@ -66,7 +66,7 @@ export default function EditAddBookForm(props: EditAddBookFormProps) {
             type={"number"}
             onChange={handleOnChange}
             className={formstyle}
-            defaultValue={book.isbn || undefined}
+            value={book.isbn || undefined}
             disabled={!!isbn}
           />
         </label>
@@ -77,7 +77,7 @@ export default function EditAddBookForm(props: EditAddBookFormProps) {
             type={"string"}
             onChange={handleOnChange}
             className={formstyle}
-            defaultValue={book.title}
+            value={book.title}
           />
         </label>
         <label>
@@ -87,7 +87,7 @@ export default function EditAddBookForm(props: EditAddBookFormProps) {
             type={"string"}
             onChange={handleOnChange}
             className={formstyle}
-            defaultValue={book.author}
+            value={book.author}
           />
         </label>
         <label>
@@ -97,7 +97,7 @@ export default function EditAddBookForm(props: EditAddBookFormProps) {
             type={"string"}
             onChange={handleOnChange}
             className={formstyle}
-            defaultValue={book.summary}
+            value={book.summary}
           />
         </label>
         <label>
@@ -107,7 +107,7 @@ export default function EditAddBookForm(props: EditAddBookFormProps) {
             type={"string"}
             onChange={handleOnChange}
             className={formstyle}
-            defaultValue={book.image}
+            value={book.image}
           />
         </label>
         <label>
@@ -117,7 +117,7 @@ export default function EditAddBookForm(props: EditAddBookFormProps) {
             type={"number"}
             onChange={handleOnChange}
             className={formstyle}
-            defaultValue={book.totalAmount || undefined}
+            value={String(book.totalAmount)}
           />
         </label>
         <label>
@@ -127,7 +127,7 @@ export default function EditAddBookForm(props: EditAddBookFormProps) {
             type={"number"}
             onChange={handleOnChange}
             className={formstyle}
-            defaultValue={book.totalBookedAmount || undefined}
+            value={String(book.totalBookedAmount)}
           />
         </label>
         <ButtonComponent label={"Submit"} />
