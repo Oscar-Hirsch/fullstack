@@ -45,7 +45,7 @@ export default function Header() {
             />
           </>
         ) : (
-          <ButtonComponent onClick={() => navigate("/")} label={"Zurück"} />
+          <ButtonComponent onClick={() => navigate(-1)} label={"Zurück"} />
         )}
         {username !== "" ? (
           <p>Hallo {username} ☺️</p>

@@ -1,4 +1,5 @@
 import { type ChangeEvent } from "react";
+import { formstyle } from "./pages/EditAddBookForm.tsx";
 
 type SearchbarProperties = {
   setSearchString: (search: string) => void;
@@ -18,7 +19,7 @@ export default function Searchbar({
       <input
         value={searchString}
         onChange={handleOnClick}
-        className="border"
+        className={formstyle + " w-1/2"}
         placeholder="Suchen"
       />
     </>

@@ -9,6 +9,8 @@ type EditAddBookFormProps = {
   getAllBooksCallback: () => void;
 };
 
+export const formstyle: string = "border rounded-[5px] p-2 shadow";
+
 export default function EditAddBookForm(props: EditAddBookFormProps) {
   const { isbn } = useParams();
   const [book, setBook] = useState<book>({
@@ -56,7 +58,7 @@ export default function EditAddBookForm(props: EditAddBookFormProps) {
   }
 
   const navigate = useNavigate();
-  const formstyle: string = "border rounded-[5px] p-2 shadow";
+
   const labelClassName = "flex flex-col";
 
   return (
