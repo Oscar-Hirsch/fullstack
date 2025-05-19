@@ -8,6 +8,10 @@ export default function Header() {
   const location = useLocation();
   const { searchString, setSearchString } = useContext(SearchContext);
   const navigate = useNavigate();
+  const host =
+    window.location.host === "localhost:5173"
+      ? "http://localhost:8080"
+      : window.location.origin;
 
   return (
     <div className="flex p-3 items-center justify-between">
@@ -26,6 +30,12 @@ export default function Header() {
       ) : (
         <ButtonComponent onClick={() => navigate("/")} label={"Zurück"} />
       )}
+      <ButtonComponent
+        label={"Login"}
+        onClick={() =>
+          window.open(host + "/oauth2/authorization/github", "_self")
+        }
+      />
     </div>
   );
 }
