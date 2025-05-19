@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import ButtonComponent from "../ButtonComponent.tsx";
 import PageWrapper from "../layout/PageWrapper.tsx";
 import Label from "../Label.tsx";
+import Overlay from "../Overlay.tsx";
 
 export default function DetailView() {
   const { isbn } = useParams();
@@ -56,6 +57,8 @@ export default function DetailView() {
 
   const totalAvailable: number = book.totalAmount - book.totalBookedAmount;
 
+  // @ts-ignore
+  // @ts-ignore
   return (
     <PageWrapper>
       {book ? (
@@ -103,12 +106,35 @@ export default function DetailView() {
           </div>
 
           <div className={"space-x-4"}>
-            <ButtonComponent onClick={handleDelete} label={"Löschen"} />
+            <ButtonComponent
+              onClick={() =>
+                (
+                  document.getElementById("löschenOverlay") as HTMLDialogElement
+                ).showModal()
+              }
+              label={"Löschen"}
+            />
             <ButtonComponent
               onClick={() => navigate(`/${isbn}/edit`)}
               label={"Bearbeiten"}
             />
           </div>
+          <Overlay id={"löschenOverlay"}>
+            <p className={"mb-2"}>Möchtest du dieses Buch wirklich löschen?</p>
+            <div className={"grid grid-cols-2 gap-7"}>
+              <ButtonComponent
+                label={"Abbrechen"}
+                onClick={() =>
+                  (
+                    document.getElementById(
+                      "löschenOverlay",
+                    ) as HTMLDialogElement
+                  ).close()
+                }
+              />
+              <ButtonComponent label={"Löschen"} onClick={handleDelete} />
+            </div>
+          </Overlay>
         </div>
       ) : (
         <p>Nothing here</p>
