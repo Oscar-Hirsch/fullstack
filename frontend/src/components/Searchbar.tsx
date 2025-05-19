@@ -15,13 +15,11 @@ export default function Searchbar({
   }
 
   return (
-    <>
-      <input
-        value={searchString}
-        onChange={handleOnClick}
-        className={formstyle + " w-1/2"}
-        placeholder="Suchen"
-      />
-    </>
+    <input
+      value={searchString}
+      onChange={handleOnClick}
+      className={formstyle + " w-1/2"}
+      placeholder="Suchen"
+    />
   );
 }

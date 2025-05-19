@@ -6,6 +6,7 @@ import ButtonComponent from "../ButtonComponent.tsx";
 import PageWrapper from "../layout/PageWrapper.tsx";
 import Label from "../Label.tsx";
 import Overlay from "../Overlay.tsx";
+import { placeholderImage } from "../BookCard.tsx";
 
 export default function DetailView() {
   const { isbn } = useParams();
@@ -57,16 +58,15 @@ export default function DetailView() {
 
   const totalAvailable: number = book.totalAmount - book.totalBookedAmount;
 
-  // @ts-ignore
-  // @ts-ignore
   return (
     <PageWrapper>
       {book ? (
         <div className={"grid grid-cols-[auto_auto] gap-8"}>
           <img
-            src={book.image}
+            src={book.image || placeholderImage}
             alt={"Cover of " + book.title}
-            className={"row-span-3 max-w-xl max-h-4xl"}
+            className={"row-span-3 max-w-[350px] max-h-4xl"}
+            onError={(e) => (e.currentTarget.src = placeholderImage)}
           />
           <div className={"grid grid-cols-[1fr_6fr] gap-2"}>
             <h1 className={"col-span-2 text-3xl mb-5"}>{book.title}</h1>

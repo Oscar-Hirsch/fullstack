@@ -120,6 +120,7 @@ export default function EditAddBookForm(props: EditAddBookFormProps) {
             onChange={handleOnChange}
             className={formstyle}
             value={String(book.totalAmount)}
+            min={0}
           />
         </label>
         <label className={labelClassName}>
@@ -130,6 +131,8 @@ export default function EditAddBookForm(props: EditAddBookFormProps) {
             onChange={handleOnChange}
             className={formstyle}
             value={String(book.totalBookedAmount)}
+            min={0}
+            max={book.totalAmount}
           />
         </label>
         <ButtonComponent label={"Submit"} />
