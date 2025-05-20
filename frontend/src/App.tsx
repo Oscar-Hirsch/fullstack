@@ -5,9 +5,24 @@ import axios from "axios";
 import { Route, Routes } from "react-router-dom";
 import DetailView from "./components/pages/DetailView.tsx";
 import EditAddBookForm from "./components/pages/EditAddBookForm.tsx";
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
 
 function App() {
   const [books, setBooks] = useState<book[]>([]);
+  const [username, setUsername] = useState<string | undefined | null>(
+    undefined,
+  );
+
+  const loadUser = useCallback(() => {
+    axios
+      .get("/api/auth/me")
+      .then((response) =>
+        response.data.length < 39
+          ? setUsername(response.data)
+          : setUsername(null),
+      )
+      .catch(() => setUsername(null));
+  }, []);
 
   const getAllBooks = useCallback(() => {
     axios
@@ -18,20 +33,23 @@ function App() {
 
   useEffect(() => {
     getAllBooks();
-  }, [getAllBooks]);
+    loadUser();
+  }, [getAllBooks, loadUser]);
 
   return (
     <Routes>
       <Route path={"/"} element={<BookGallery bookList={books} />} />
-      <Route
-        path={"/newBook"}
-        element={<EditAddBookForm getAllBooksCallback={getAllBooks} />}
-      />
       <Route path={"/:isbn"} element={<DetailView />} />
-      <Route
-        path={"/:isbn/edit"}
-        element={<EditAddBookForm getAllBooksCallback={getAllBooks} />}
-      />
+      <Route element={<ProtectedRoute username={username} />}>
+        <Route
+          path={"/newBook"}
+          element={<EditAddBookForm getAllBooksCallback={getAllBooks} />}
+        />
+        <Route
+          path={"/:isbn/edit"}
+          element={<EditAddBookForm getAllBooksCallback={getAllBooks} />}
+        />
+      </Route>
     </Routes>
   );
 }
