@@ -7,7 +7,7 @@ export default function ButtonComponent(props: {
   const { onClick, label } = props;
 
   const className =
-    "transition-colors p-2 border rounded-[4px] hover:bg-blue-100 active:bg-blue-300 disabled:bg-gray-500 shadow" +
+    "transition-colors p-2 border rounded-[4px] hover:bg-blue-100 active:bg-blue-300 disabled:bg-gray-400 disabled:border-transparent disabled:text-gray-700 disabled:shadow-none shadow" +
     " " +
     props.className;
 

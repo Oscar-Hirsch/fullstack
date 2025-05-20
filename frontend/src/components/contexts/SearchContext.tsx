@@ -1,8 +1,8 @@
-import { createContext, type SetStateAction } from "react";
+import { createContext } from "react";
 
 export const SearchContext = createContext<{
   searchString: string;
-  setSearchString: (value: SetStateAction<string>) => void;
+  setSearchString: (value: string) => void;
 }>({
   searchString: "",
   setSearchString: () => {},

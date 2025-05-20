@@ -1,15 +1,17 @@
 import type { book } from "../../types/book/book.ts";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ButtonComponent from "../ButtonComponent.tsx";
 import PageWrapper from "../layout/PageWrapper.tsx";
 import Label from "../Label.tsx";
 import Overlay from "../Overlay.tsx";
 import { placeholderImage } from "../BookCard.tsx";
+import { UserContext } from "../contexts/UserContext.tsx";
 
 export default function DetailView() {
   const { isbn } = useParams();
+  const { userName } = useContext(UserContext);
   const [book, setBook] = useState<book>({
     isbn: null,
     title: "",
@@ -86,12 +88,12 @@ export default function DetailView() {
             <ButtonComponent
               onClick={handleBookLending}
               label={"Ausleihen"}
-              disabled={totalAvailable <= 0}
+              disabled={!userName || totalAvailable <= 0}
             />
             <ButtonComponent
               onClick={handleBookReturn}
               label={"Zurückgeben"}
-              disabled={book.totalBookedAmount <= 0}
+              disabled={!userName || book.totalBookedAmount <= 0}
             />
           </div>
           <div>
@@ -113,10 +115,12 @@ export default function DetailView() {
                 ).showModal()
               }
               label={"Löschen"}
+              disabled={!userName}
             />
             <ButtonComponent
               onClick={() => navigate(`/${isbn}/edit`)}
               label={"Bearbeiten"}
+              disabled={!userName}
             />
           </div>
           <Overlay id={"löschenOverlay"}>

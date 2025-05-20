@@ -6,10 +6,11 @@ import { Route, Routes } from "react-router-dom";
 import DetailView from "./components/pages/DetailView.tsx";
 import EditAddBookForm from "./components/pages/EditAddBookForm.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
+import { UserContext } from "./components/contexts/UserContext.tsx";
 
 function App() {
   const [books, setBooks] = useState<book[]>([]);
-  const [username, setUsername] = useState<string | undefined | null>(
+  const [userName, setUserName] = useState<string | undefined | null>(
     undefined,
   );
 
@@ -18,10 +19,10 @@ function App() {
       .get("/api/auth/me")
       .then((response) =>
         response.data.length < 39
-          ? setUsername(response.data)
-          : setUsername(null),
+          ? setUserName(response.data)
+          : setUserName(null),
       )
-      .catch(() => setUsername(null));
+      .catch(() => setUserName(null));
   }, []);
 
   const getAllBooks = useCallback(() => {
@@ -37,20 +38,22 @@ function App() {
   }, [getAllBooks, loadUser]);
 
   return (
-    <Routes>
-      <Route path={"/"} element={<BookGallery bookList={books} />} />
-      <Route path={"/:isbn"} element={<DetailView />} />
-      <Route element={<ProtectedRoute username={username} />}>
-        <Route
-          path={"/newBook"}
-          element={<EditAddBookForm getAllBooksCallback={getAllBooks} />}
-        />
-        <Route
-          path={"/:isbn/edit"}
-          element={<EditAddBookForm getAllBooksCallback={getAllBooks} />}
-        />
-      </Route>
-    </Routes>
+    <UserContext.Provider value={{ userName, setUserName }}>
+      <Routes>
+        <Route path={"/"} element={<BookGallery bookList={books} />} />
+        <Route path={"/:isbn"} element={<DetailView />} />
+        <Route element={<ProtectedRoute username={userName} />}>
+          <Route
+            path={"/newBook"}
+            element={<EditAddBookForm getAllBooksCallback={getAllBooks} />}
+          />
+          <Route
+            path={"/:isbn/edit"}
+            element={<EditAddBookForm getAllBooksCallback={getAllBooks} />}
+          />
+        </Route>
+      </Routes>
+    </UserContext.Provider>
   );
 }
 
