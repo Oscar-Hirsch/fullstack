@@ -24,6 +24,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/secured").authenticated()
                         .anyRequest().permitAll()
                 )
+                .logout(logout -> logout.logoutSuccessUrl(appUrl))
                 .oauth2Login(oauth2 -> oauth2.defaultSuccessUrl(appUrl));
         return http.build();
     }

@@ -53,7 +53,9 @@ export default function Header() {
           />
         )}
         {username !== "" ? (
-          <p>Hallo {username} ☺️</p>
+          <button onClick={() => window.open(host + "/logout", "_self")}>
+            Hallo {username} ☺️
+          </button>
         ) : (
           <ButtonComponent
             label={"Login"}
