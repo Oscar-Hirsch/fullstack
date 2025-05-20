@@ -3,6 +3,7 @@ package org.example.backend.security;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -20,8 +21,8 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/auth/me").authenticated()
-                        .requestMatchers("/api/secured").authenticated()
+                        .requestMatchers(HttpMethod.GET,"/api/*").permitAll()
+                        .requestMatchers("/api/*").authenticated()
                         .anyRequest().permitAll()
                 )
                 .logout(logout -> logout.logoutSuccessUrl(appUrl))

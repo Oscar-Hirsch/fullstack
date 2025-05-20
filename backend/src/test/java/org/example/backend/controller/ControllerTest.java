@@ -21,7 +21,6 @@ class ControllerTest {
     BookRepository bookRepository;
 
     @Test
-    @WithMockUser
     void getAll() throws Exception {
 
         //WHEN
@@ -68,7 +67,7 @@ class ControllerTest {
 
     }
 
-    @Test
+    @Test @WithMockUser
     void addBook() throws Exception {
         //Given
         mockMvc.perform(MockMvcRequestBuilders.post("/api/newBook")
@@ -101,7 +100,7 @@ class ControllerTest {
 
     }
 
-    @Test
+    @Test @WithMockUser
     void updateBook() throws Exception {
         bookRepository.save(new Book("book1", "author1", 123, "summary", "imageurl", 3, 5));
         mockMvc.perform(MockMvcRequestBuilders.put("/api/123")
@@ -131,7 +130,7 @@ class ControllerTest {
               }"""));
     }
 
-    @Test
+    @Test @WithMockUser
     void deleteBook() throws Exception {
         bookRepository.save(new Book("book1", "author1", 123, "summary", "imageurl", 3, 5));
 
