@@ -33,6 +33,9 @@ export default function EditAddBookForm(props: EditAddBookFormProps) {
   function handleOnChange(
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) {
+    if (e.target.name === "isbn") {
+      e.target.value = e.target.value.replace(/[^0-9]/g, "");
+    }
     setBook((previous) => ({
       ...previous,
       [e.target.name]: e.target.value,
@@ -98,7 +101,6 @@ export default function EditAddBookForm(props: EditAddBookFormProps) {
           <span>ISBN:</span>
           <input
             name={"isbn"}
-            type={"number"}
             onChange={handleOnChange}
             className={formstyle}
             value={book.isbn || undefined}
