@@ -11,6 +11,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 class ControllerTest {
@@ -67,7 +68,7 @@ class ControllerTest {
 
     }
 
-    @Test @WithMockUser
+    @Test @WithMockUser(authorities = {"USER"})
     void addBook() throws Exception {
         //Given
         mockMvc.perform(MockMvcRequestBuilders.post("/api/newBook")
@@ -100,7 +101,7 @@ class ControllerTest {
 
     }
 
-    @Test @WithMockUser
+    @Test @WithMockUser(authorities = {"USER"})
     void updateBook() throws Exception {
         bookRepository.save(new Book("book1", "author1", 123, "summary", "imageurl", 3, 5));
         mockMvc.perform(MockMvcRequestBuilders.put("/api/123")
@@ -130,7 +131,7 @@ class ControllerTest {
               }"""));
     }
 
-    @Test @WithMockUser
+    @Test @WithMockUser(authorities = {"USER"})
     void deleteBook() throws Exception {
         bookRepository.save(new Book("book1", "author1", 123, "summary", "imageurl", 3, 5));
 
