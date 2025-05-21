@@ -29,7 +29,7 @@ class ControllerTest {
 
 
         //THEN
-        mockMvc.perform(MockMvcRequestBuilders.get("/api"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/books"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(
                 """
@@ -51,7 +51,7 @@ class ControllerTest {
     void getByISBN() throws Exception {
         bookRepository.save(new Book("book1", "author1", 123, "summary", "imageurl", 3, 5));
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/123"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/books/123"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(
         """
@@ -71,7 +71,7 @@ class ControllerTest {
     @Test @WithMockUser(authorities = {"USER"})
     void addBook() throws Exception {
         //Given
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/newBook")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/books/newBook")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(
             """
@@ -104,7 +104,7 @@ class ControllerTest {
     @Test @WithMockUser(authorities = {"USER"})
     void updateBook() throws Exception {
         bookRepository.save(new Book("book1", "author1", 123, "summary", "imageurl", 3, 5));
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/123")
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/books/123")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(
                         """
@@ -135,7 +135,7 @@ class ControllerTest {
     void deleteBook() throws Exception {
         bookRepository.save(new Book("book1", "author1", 123, "summary", "imageurl", 3, 5));
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/123"))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/books/123"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
     }

@@ -24,14 +24,14 @@ export default function DetailView() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`/api/${isbn}`).then((response) => setBook(response.data));
+    axios.get(`/api/books/${isbn}`).then((response) => setBook(response.data));
   }, [isbn]);
 
   function handleBookLending() {
     if (book.totalBookedAmount >= book.totalAmount) return;
     //use effect total booked amount for dependency array
     axios
-      .put(`/api/${isbn}`, {
+      .put(`/api/books/${isbn}`, {
         ...book,
         totalBookedAmount: book!.totalBookedAmount + 1,
       })
