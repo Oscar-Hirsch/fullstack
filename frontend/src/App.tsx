@@ -7,6 +7,7 @@ import DetailView from "./components/pages/DetailView.tsx";
 import EditAddBookForm from "./components/pages/EditAddBookForm.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import { UserContext } from "./components/contexts/UserContext.tsx";
+import type { AppUser } from "./types/appUser.ts";
 
 function App() {
   const [books, setBooks] = useState<book[]>([]);
@@ -16,12 +17,8 @@ function App() {
 
   const loadUser = useCallback(() => {
     axios
-      .get("/api/auth/me")
-      .then((response) =>
-        response.data.length < 39
-          ? setUserName(response.data)
-          : setUserName(null),
-      )
+      .get<AppUser>("/api/auth/me")
+      .then((response) => setUserName(response.data.username))
       .catch(() => setUserName(null));
   }, []);
 

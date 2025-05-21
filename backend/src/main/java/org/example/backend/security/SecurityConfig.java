@@ -22,7 +22,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.GET,"/api/*").permitAll()
-                        .requestMatchers("/api/*").authenticated()
+                        .requestMatchers("/api/*").hasAuthority("USER")
                         .anyRequest().permitAll()
                 )
                 .logout(logout -> logout.logoutSuccessUrl(appUrl))
