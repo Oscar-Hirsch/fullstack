@@ -24,7 +24,7 @@ public class AuthController {
                 user.getName(),
                 user.getAttributes().get("login").toString(),
                 user.getAttributes().get("avatar_url").toString(),
-                user.getAttributes().get("role").toString()
+                user.getAuthorities().iterator().next().getAuthority()
         );
     }
 }
