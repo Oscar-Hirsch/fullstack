@@ -39,6 +39,34 @@ export default function EditAddBookForm(props: EditAddBookFormProps) {
     }));
   }
 
+  function handleSearchBookAPI() {
+    axios
+      .get(`https://openlibrary.org/isbn/${book.isbn}.json`)
+      .then((response) =>
+        setBook((previous) => ({
+          ...previous,
+          title: response.data.title,
+          summary:
+            response.data.description && response.data.description.value
+              ? response.data.description.value
+              : "",
+          image: response.data.isbn_13
+            ? `https://covers.openlibrary.org/b/isbn/${response.data.isbn_13}-L.jpg`
+            : "",
+        })),
+      )
+      .then(() =>
+        axios
+          .get(`https://openlibrary.org/search.json?q=${book.isbn}.json`)
+          .then((response) =>
+            setBook((previous) => ({
+              ...previous,
+              author: response.data.docs[0].author_name.join(", "),
+            })),
+          ),
+      );
+  }
+
   function handleOnSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (isbn)
@@ -75,6 +103,11 @@ export default function EditAddBookForm(props: EditAddBookFormProps) {
             className={formstyle}
             value={book.isbn || undefined}
             disabled={!!isbn}
+          />
+          <ButtonComponent
+            label={"Suchen"}
+            onClick={handleSearchBookAPI}
+            type={"button"}
           />
         </label>
         <label className={labelClassName}>
