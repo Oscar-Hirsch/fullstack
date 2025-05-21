@@ -25,7 +25,9 @@ export default function EditAddBookForm(props: EditAddBookFormProps) {
 
   useEffect(() => {
     if (isbn)
-      axios.get(`/api/${isbn}`).then((response) => setBook(response.data));
+      axios
+        .get(`/api/books/${isbn}`)
+        .then((response) => setBook(response.data));
   }, [isbn]);
 
   function handleOnChange(
@@ -41,7 +43,7 @@ export default function EditAddBookForm(props: EditAddBookFormProps) {
     e.preventDefault();
     if (isbn)
       axios
-        .put(`/api/${isbn}`, book)
+        .put(`/api/books/${isbn}`, book)
         .then(() => {
           props.getAllBooksCallback();
           navigate(`/${isbn}`);
@@ -49,7 +51,7 @@ export default function EditAddBookForm(props: EditAddBookFormProps) {
         .catch((error) => console.log(error));
     else
       axios
-        .post("/api/newBook", book)
+        .post("/api/books/newBook", book)
         .then(() => {
           props.getAllBooksCallback();
           navigate("/");

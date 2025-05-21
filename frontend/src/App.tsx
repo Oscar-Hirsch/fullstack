@@ -24,7 +24,7 @@ function App() {
 
   const getAllBooks = useCallback(() => {
     axios
-      .get<book[]>("/api")
+      .get<book[]>("/api/books")
       .then((response) => setBooks(response.data))
       .catch((e) => console.error(e));
   }, []);
