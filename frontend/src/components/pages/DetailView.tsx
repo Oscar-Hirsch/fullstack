@@ -9,7 +9,11 @@ import Overlay from "../Overlay.tsx";
 import { placeholderImage } from "../BookCard.tsx";
 import { UserContext } from "../contexts/UserContext.tsx";
 
-export default function DetailView() {
+type DetailViewProps = {
+  getAllBooksCallback: () => void;
+};
+
+export default function DetailView({ getAllBooksCallback }: DetailViewProps) {
   const { isbn } = useParams();
   const { userName } = useContext(UserContext);
   const [book, setBook] = useState<book>({
@@ -36,6 +40,7 @@ export default function DetailView() {
         totalBookedAmount: book!.totalBookedAmount + 1,
       })
       .then((response) => setBook(response.data))
+      .then(() => getAllBooksCallback())
       .catch((error) => console.log(error));
   }
 
@@ -48,6 +53,7 @@ export default function DetailView() {
         totalBookedAmount: book!.totalBookedAmount - 1,
       })
       .then((response) => setBook(response.data))
+      .then(() => getAllBooksCallback())
       .catch((error) => console.log(error));
   }
 
@@ -55,6 +61,7 @@ export default function DetailView() {
     axios
       .delete(`/api/books/${isbn}`)
       .then(() => navigate("/"))
+      .then(() => getAllBooksCallback())
       .catch((error) => console.log(error));
   }
 
