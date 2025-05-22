@@ -60,8 +60,8 @@ export default function DetailView({ getAllBooksCallback }: DetailViewProps) {
   function handleDelete() {
     axios
       .delete(`/api/books/${isbn}`)
-      .then(() => navigate("/"))
       .then(() => getAllBooksCallback())
+      .then(() => navigate("/"))
       .catch((error) => console.log(error));
   }
 
