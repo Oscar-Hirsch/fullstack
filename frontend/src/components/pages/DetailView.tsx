@@ -43,7 +43,7 @@ export default function DetailView() {
     if (book.totalBookedAmount <= 0) return;
     //use effect total booked amount for dependency array
     axios
-      .put(`/api/${isbn}`, {
+      .put(`/api/books/${isbn}`, {
         ...book,
         totalBookedAmount: book!.totalBookedAmount - 1,
       })
@@ -53,7 +53,7 @@ export default function DetailView() {
 
   function handleDelete() {
     axios
-      .delete(`/api/${isbn}`)
+      .delete(`/api/books/${isbn}`)
       .then(() => navigate("/"))
       .catch((error) => console.log(error));
   }
