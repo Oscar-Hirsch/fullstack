@@ -38,7 +38,10 @@ function App() {
     <UserContext.Provider value={{ userName, setUserName }}>
       <Routes>
         <Route path={"/"} element={<BookGallery bookList={books} />} />
-        <Route path={"/:isbn"} element={<DetailView />} />
+        <Route
+          path={"/:isbn"}
+          element={<DetailView getAllBooksCallback={getAllBooks} />}
+        />
         <Route element={<ProtectedRoute username={userName} />}>
           <Route
             path={"/newBook"}
