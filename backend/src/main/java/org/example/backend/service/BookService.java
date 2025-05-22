@@ -17,7 +17,7 @@ public class BookService {
         return bookRepository.findAll();
     }
     
-    public Book getByISBN( int isbn ) {
+    public Book getByISBN( String isbn ) {
         return bookRepository.getByIsbn( isbn );
     }
     
@@ -25,7 +25,7 @@ public class BookService {
         return bookRepository.save( book );
     }
     
-    public Book updateBook( int isbn, Book book ) {
+    public Book updateBook( String isbn, Book book ) {
         Book foundBook = bookRepository.getByIsbn( isbn );
         return bookRepository.save( foundBook
                 .withAuthor( book.author() )
@@ -36,7 +36,7 @@ public class BookService {
                 .withTotalBookedAmount( book.totalBookedAmount() ) );
     }
     
-    public void deleteBook( int isbn ) {
+    public void deleteBook( String isbn ) {
         bookRepository.removeBookByIsbn( isbn );
     }
 }

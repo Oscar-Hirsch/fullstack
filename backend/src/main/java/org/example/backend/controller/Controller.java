@@ -20,7 +20,7 @@ public class Controller {
     }
     
     @GetMapping("/{isbn}")
-    public Book getByISBN( @PathVariable int isbn ) {
+    public Book getByISBN( @PathVariable String isbn ) {
         return bookService.getByISBN( isbn );
     }
     
@@ -30,12 +30,12 @@ public class Controller {
     }
     
     @PutMapping("/{isbn}")
-    public Book updateBook( @PathVariable int isbn, @RequestBody Book book ) {
+    public Book updateBook( @PathVariable String isbn, @RequestBody Book book ) {
         return bookService.updateBook( isbn, book );
     }
     
     @DeleteMapping("/{isbn}")
-    public void deleteBook( @PathVariable int isbn ) {
+    public void deleteBook( @PathVariable String isbn ) {
         bookService.deleteBook( isbn );
     }
 }
